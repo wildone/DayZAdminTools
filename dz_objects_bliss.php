@@ -1,6 +1,10 @@
 <?php
+
 // Written by Killzone_Kid
 // http://killzonekid.com
+//
+// @Modified-By:   Gate
+// @Modified-Date: 2012/10/23
 
 $cache_file_objects_bliss = 'dz_db_cache_objects_bliss';
 
@@ -21,14 +25,28 @@ if (($now-filemtime($cache_file_objects_bliss)) > $update_interval){
 $filter_server_instance = ($server_instance != '')?"AND objects.instance = '$server_instance'\n":"";			
 $query = <<<END
 
-SELECT objects.otype, objects.oid, objects.uid, objects.pos, objects.lastupdate, profile.id, profile.name, profile.unique_id AS guid
-FROM objects
-LEFT JOIN profile
-ON objects.oid = profile.id
-WHERE objects.oid != '0'
-AND objects.otype != 'TentStorage'
+SELECT
+	instance_deployable.unique_id AS uid,
+	instance_deployable.deployable_id,
+	instance_deployable.owner_id,
+	instance_deployable.worldspace AS pos,
+	instance_deployable.last_updated AS lastupdate,
+	instance_deployable.inventory,
+	deployable.class_name AS otype,
+	survivor.unique_id,
+	profile.name,
+	profile.unique_id AS guid
+	
+FROM
+	instance_deployable
+	LEFT JOIN deployable ON deployable.id = instance_deployable.deployable_id	
+	LEFT JOIN survivor ON instance_deployable.owner_id = survivor.id
+	LEFT JOIN profile ON survivor.unique_id = profile.unique_id
+	
+WHERE
+	instance_deployable.deployable_id <> 1
 $filter_server_instance
-ORDER BY objects.lastupdate DESC
+ORDER BY instance_deployable.last_updated DESC
 
 END;
 

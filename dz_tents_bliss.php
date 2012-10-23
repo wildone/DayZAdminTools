@@ -1,33 +1,52 @@
 <?php
+
 // Written by Killzone_Kid
 // http://killzonekid.com
+//
+// @Modified-By:   Gate
+// @Modified-Date: 2012/10/23
 
 $cache_file_tents_bliss = 'dz_db_cache_tents_bliss';
 
 $now = time();
 
 if (!file_exists($cache_file_tents_bliss)){
-
 	$already_old = $now - $update_interval - 10;
 	touch($cache_file_tents_bliss, $already_old);
 }
 
 // if cache is older than set interval
 if (($now-filemtime($cache_file_tents_bliss)) > $update_interval){	
-
 	touch($cache_file_tents_bliss);
 	
 //start db query
 $filter_server_instance = ($server_instance != '')?"AND objects.instance = '$server_instance'\n":"";	
 $query = <<<END
 
-SELECT objects.otype, objects.oid, objects.uid, objects.pos, objects.lastupdate, objects.inventory, profile.id, profile.name, profile.unique_id AS guid
-FROM objects
-LEFT JOIN profile
-ON objects.oid = profile.id
-WHERE objects.otype = 'TentStorage'
+SELECT
+	instance_deployable.id,
+	instance_deployable.deployable_id as otype,
+	instance_deployable.owner_id as oid,
+	instance_deployable.unique_id as uid,
+	instance_deployable.worldspace as pos,
+	instance_deployable.last_updated as lastupdate,
+	instance_deployable.inventory,
+	deployable.class_name AS otype,
+	survivor.id,
+	survivor.unique_id,
+	profile.id,
+	profile.name,
+	profile.unique_id AS guid
+FROM
+	instance_deployable
+	LEFT JOIN deployable ON deployable.id = instance_deployable.deployable_id
+	LEFT JOIN survivor ON instance_deployable.owner_id = survivor.id
+	LEFT JOIN profile ON survivor.unique_id = profile.unique_id
+WHERE
+	instance_deployable.deployable_id = 1
+
 $filter_server_instance
-ORDER BY objects.lastupdate DESC
+ORDER BY instance_deployable.last_updated DESC
 
 END;
 

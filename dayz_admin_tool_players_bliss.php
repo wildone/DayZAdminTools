@@ -1,6 +1,11 @@
 <?php
+
 // Written by Killzone_Kid
 // http://killzonekid.com
+//
+// @Modified-By:   Gate
+// @Modified-Date: 2012/10/23
+
 include "dz_config_bliss.php";
 ?>
 

@@ -1,6 +1,11 @@
 <?php
+
 // Written by Killzone_Kid
 // http://killzonekid.com
+//
+// @Modified-By:   Gate
+// @Modified-Date: 2012/10/23
+
 include "dz_config_bliss.php";
 ?>
 
@@ -45,17 +50,32 @@ if (($now-filemtime($cache_file_player_history_bliss)) > $update_interval){
 //start db query			
 $query = <<<END
 
-SELECT survivor.last_update AS updated, survivor.is_dead AS dead, '' AS login, '' AS start
-FROM survivor
-WHERE survivor.unique_id = '$guid'
-UNION ALL
-SELECT log_entry.created, '', log_entry.log_code_id, ''
-FROM log_entry
-WHERE log_entry.unique_id = '$guid'
-UNION ALL
-SELECT survivor.start_time, '', '', '1'
-FROM survivor
-WHERE survivor.unique_id = '$guid'
+SELECT
+	survivor.last_updated AS updated,
+	survivor.is_dead AS dead,
+	'' AS login,
+	'' AS start
+
+FROM
+	survivor
+
+WHERE
+	survivor.unique_id = '$guid'
+	
+	UNION ALL
+		SELECT log_entry.created, '', log_entry.log_code_id, ''
+	FROM
+		log_entry
+	WHERE
+		log_entry.unique_id = '$guid'
+		
+	UNION ALL
+		SELECT survivor.start_time, '', '', '1'
+	FROM
+		survivor
+	WHERE
+		survivor.unique_id = '$guid'
+		
 ORDER BY updated DESC
 
 END;
@@ -123,7 +143,6 @@ END;
 				
 				$unix_time = strtotime($updated);
 				if ($previous_time != ''){
-				
 					$interval = $previous_time - $unix_time;
 				}
 				
@@ -131,13 +150,11 @@ END;
 				$output .= "<div style=\"padding-top:".$height."px;\">$updated - $dead$login$start</div>";
 				$previous_time = $unix_time;
 			}
-
 		}
 			
 		mysql_close($link);
 		
 		echo $output;
-			
 	}
 	
 } else {

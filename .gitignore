@@ -1,3 +1,4 @@
 # Can ignore specific files
-dz_db_cache_player_history_bliss
-dz_db_cache_player_bliss
+/.cache
+/watch_list_bliss
+

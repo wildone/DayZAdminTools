@@ -1,3 +1,0 @@
-t_up = 1350992643;
-server_query = '<span class=\"gameq\"><b>Querying 100 records</b></span>';
-readyToUpdateIn(30-(t_now - t_up));

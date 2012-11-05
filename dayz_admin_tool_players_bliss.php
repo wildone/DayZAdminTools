@@ -19,7 +19,9 @@
 		<script type="text/javascript" src=".include/functions.js"></script>
 	</head>
 	<body onload="JavaScript:timedRefresh(31000);">
-		<input id="back" type="button" onclick="document.location.href='index.html';" value="Index"><input id="players" type="button" onclick="document.location.href='?opt=0';" value="Players"><input type="button" onclick="document.location.href='?opt=1';" value="Health"><input type="button" onclick="document.location.href='?opt=2';" value="Inventory"><input type="button" onclick="document.location.href='?opt=3';" value="Position"><input id="refresh" type="text" value="" readonly>
+		| <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_players_bliss.php';" value="View Players"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_vehicles_bliss.php';" value="View Vehicles"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_tents_bliss.php';" value="View Tents" disabled="disabled"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_objects_bliss.php';" value="View Objects" disabled="disabled"> | Killzone_Kid's Arma II DayZ Admin Tools for Bliss build 4.1
+		<hr /> 
+		&nbsp;&nbsp;<input id="players" type="button" onclick="document.location.href='?opt=0';" value="Players"><input type="button" onclick="document.location.href='?opt=1';" value="Health"><input type="button" onclick="document.location.href='?opt=2';" value="Inventory"><input type="button" onclick="document.location.href='?opt=3';" value="Position"> <input id="refresh" type="text" value="" readonly>
 		<img class="<?php echo $server_map;?>" src=".maps/<?php echo $server_map.'.jpg';?>">
 		<script type="text/javascript">
 			dbData = new Array();

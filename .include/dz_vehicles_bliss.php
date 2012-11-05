@@ -28,22 +28,29 @@
 	$filter_server_instance = ($server_instance != '') ? "AND iv.instance_id = '$server_instance'\n":"";
 			
 	$query = <<<END
-SELECT
+select
 	iv.id,
+	v.class_name,
 	iv.worldspace,
 	iv.inventory,
+	iv.parts,
 	iv.fuel,
 	iv.damage,
-	iv.parts,
-	iv.last_updated,
-	wv.vehicle_id,
-	v.class_name
-FROM
-	instance_vehicle AS iv
-	JOIN world_vehicle AS wv ON (iv.world_vehicle_id = wv.id)
-	JOIN vehicle AS v ON (wv.id = v.id)
-WHERE iv.damage < 1.0 $filter_server_instance
-ORDER BY iv.id ASC
+	iv.last_updated
+
+from
+	(instance_vehicle as iv
+		left join world_vehicle as wv
+			on (iv.world_vehicle_id = wv.id)
+		left join vehicle as v
+			on (wv.vehicle_id = v.id)
+	)
+
+where
+	iv.damage < 1.0
+	$filter_server_instance
+
+order by iv.id asc;
 END;
 	
 		if (!$link = mysql_connect($DB_hostname, $DB_username, $DB_password)){
@@ -62,11 +69,9 @@ END;
 				while($row = mysql_fetch_array($result)){
 					$id				= $row['id'];
 					$class_name		= $row['class_name'];
-					
 					$last_updated	= $row['last_updated'];
 					$timestamp		= strtotime($last_updated);
 					$last_updated	= date("Y-m-d H:i:s", ($timestamp - ($server_time_offset * 60)));
-					
 					$fuel			= $row['fuel'];
 					$worldspace		= preg_replace('/\\|/',',', $row['worldspace']);
 					$damage			= preg_replace('/\\|/',',', $row['damage']);
@@ -77,7 +82,24 @@ END;
 					$pos_text = '? x ?';
 					$regexp = '/\[.+,\[(.+),(.+),.+\]\]/U';
 					if (preg_match($regexp, $worldspace, $matches) !== false) {
-						$pos_text = number_format($matches[1] / 100, 2) .' x '. number_format(153 - ($matches[2] / 100), 2);
+					
+						
+						$x = number_format($matches[1] / 100, 2);
+						$y = number_format(153 - ($matches[2] / 100), 2);
+						$pos_text = $x .' x '. $y;
+					}
+
+					// Lets chop the class names into something short
+					$splitname = explode('_', $class_name);
+					
+					if ($splitname[0] == 'Old') {
+						$class_name = 'Old Bike';
+					}
+					else if ($splitname[1] == 'hatchback') {
+						$class_name = 'Hatchback';
+					}
+					else {
+						$class_name = $splitname[0];
 					}
 					
 					if (!in_array($id, $all_UIDs)) {

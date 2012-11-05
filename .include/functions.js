@@ -1,12 +1,16 @@
+/*Array.prototype.inArray = function () { 
+	var i; 
+	for (i = 0; i < this.length; i++) { 
+		if (this[i] === value) { return true; } 
+	}; 
+	return false; 
+};*/  
+
 String.prototype.format = function () {
     var args = arguments;
     return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function (m, n) {
-        if (m == "{{") {
-            return "{";
-        }
-        if (m == "}}") {
-            return "}";
-        }
+        if (m == "{{") { return "{"; }
+        if (m == "}}") { return "}"; }
         return args[n];
     });
 };

@@ -11,18 +11,18 @@
 **************************************************/
 	
 	$cache_directory = '.cache/';
-	$cache_file_vehicles_bliss = $cache_directory .'dz_db_cache_vehicles_bliss';
+	$cache_file = $cache_directory .'dz_db_cache_vehicles_bliss';
 	
 	$now = time();
 	
-	if (!file_exists($cache_file_vehicles_bliss)){
+	if (!file_exists($cache_file)){
 		$already_old = $now - $update_interval - 10;
-		touch($cache_file_vehicles_bliss, $already_old);
+		touch($cache_file, $already_old);
 	}
 	
 	// if cache is older than set interval
-	if (true || ($now-filemtime($cache_file_vehicles_bliss)) > $update_interval){	
-		touch($cache_file_vehicles_bliss);
+	if (true || ($now-filemtime($cache_file)) > $update_interval){	
+		touch($cache_file);
 	
 	//start db query
 	$filter_server_instance = ($server_instance != '') ? "AND iv.instance_id = '$server_instance'\n":"";
@@ -114,9 +114,9 @@ END;
 				
 			mysql_close($link);
 				
-			file_put_contents ($cache_file_vehicles_bliss, $DB_return_str);
+			file_put_contents ($cache_file, $DB_return_str);
 		}
 	}
 
-	include $cache_file_vehicles_bliss;
+	include $cache_file;
 ?>

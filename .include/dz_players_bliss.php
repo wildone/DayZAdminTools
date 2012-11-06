@@ -11,17 +11,17 @@
 **************************************************/
 	
 	$cache_directory = '.cache/';
-	$cache_file_players_bliss = $cache_directory .'dz_db_cache_players_bliss';
+	$cache_file = $cache_directory .'dz_db_cache_players_bliss';
 	$now = time();
 	
-	if (!file_exists($cache_file_players_bliss)) {
+	if (!file_exists($cache_file)) {
 		$already_old = ($now - $update_interval - 10);
-		touch($cache_file_players_bliss, $already_old);
+		touch($cache_file, $already_old);
 	}
 	
 	// check to see if cache is out of date
-	if (true || ($now - filemtime($cache_file_players_bliss)) > $update_interval) {	
-		touch($cache_file_players_bliss);
+	if (true || ($now - filemtime($cache_file)) > $update_interval) {	
+		touch($cache_file);
 		
 		$db_pull_limit = $DB_max_query_players_results;
 		$GQ_return_str = "<span class=\"gameq\"><b>Querying maximum of $DB_max_query_players_results records</b></span>";
@@ -114,10 +114,10 @@ LIMIT
 				
 			mysql_close($link);
 				
-			file_put_contents($cache_file_players_bliss, $DB_return_str);
+			file_put_contents($cache_file, $DB_return_str);
 		}
 	}
 	
-	include $cache_file_players_bliss;
+	include $cache_file;
 
 ?>

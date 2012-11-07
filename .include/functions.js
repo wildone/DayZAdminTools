@@ -84,7 +84,7 @@ function markPlayers(dbData, opt, watch_list, last_update_cutoff_min) {
             {
                 for (i in dbData) {
                     if ((last_updated - dbData[i][4]) < last_update_cutoff_min * 60) {
-                        document.write('<div id="' + i + '" class="mark" style="' + getTopLeft(server_map, dbData[i][1], dbData[i][0], i) + ((dbData[i][2]) ? 'text-decoration:line-through;' : '') + 'z-index:' + dbData[i][4] + ';" oncontextmenu="thisHide(this,box_hide_delay);return false;"><b>' + dbData[i][0] + '</b> [<a class="lnk" href="dz_player_history_bliss.php?guid=' + i + '">' + i + '</a>]<br>' + dbData[i][3] + '</div>');
+                        document.write('<div id="' + i + '" class="mark" style="' + getTopLeft(server_map, dbData[i][1], dbData[i][0], i) + ((dbData[i][2]) ? 'text-decoration:line-through;' : '') + 'z-index:' + dbData[i][4] + ';" oncontextmenu="thisHide(this,box_hide_delay);return false;"><b>' + dbData[i][0] + '</b> [<a class="lnk" href=".include/dz_player_history_bliss.php?guid=' + i + '">' + i + '</a>]<br>' + dbData[i][3] + '</div>');
                         players_displayed++;
                     }
                 }
@@ -225,7 +225,7 @@ function readyToUpdateIn(sec) {
 }
 
 function getDamage(health, name, id) {
-	damagedParts = '<br><b>Broken Parts:</b>';
+	damagedParts = '<br><br><b>Damaged Parts:</b>';
 
 	if (health == '[]') {
 		return '';
@@ -240,7 +240,14 @@ function getDamage(health, name, id) {
 		}
 	
 		for (p = 0; p<healthArray.length; p++){
-			damagedParts += '<br>'+healthArray[p][0];
+			healthPerc = Math.round((1 - healthArray[p][1]) * 100);
+			
+			if (healthPerc <= 0.0) {
+				damagedParts += '<br><span style="text-decoration:line-through">'+healthArray[p][0]+' (0%)</span>';
+			}
+			else {
+				damagedParts += '<br>'+healthArray[p][0]+' ('+healthPerc+'%)';
+			}
 		}
 		
 		for (partNameCzech in partNameEnglish) {

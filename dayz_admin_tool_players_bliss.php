@@ -2,11 +2,11 @@
 
 	/**************************************************
 	
-	 Written by Killzone_Kid
-	 http://killzonekid.com
-	
-	 @Modified-By:   Gate
-	 @Modified-Date: 2012/10/23
+		 Written by Killzone_Kid
+		 http://killzonekid.com
+		
+		 @Modified-By:   Gate
+		 @Modified-Date: 2012/10/23
 	
 	**************************************************/
 
@@ -22,7 +22,7 @@
 		<script type="text/javascript" src=".include/functions.js"></script>
 	</head>
 	<body onload="JavaScript:timedRefresh(31000);">
-		| <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_players_bliss.php';" value="View Players"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_vehicles_bliss.php';" value="View Vehicles"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_tents_bliss.php';" value="View Tents"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_objects_bliss.php';" value="View Objects"> | Killzone_Kid's Arma II DayZ Admin Tools for Bliss build 4.1
+		| <input type="button" onclick="document.location.href='dayz_admin_tool_players_bliss.php';" value="View Players"> | <input type="button" onclick="document.location.href='dayz_admin_tool_vehicles_bliss.php';" value="View Vehicles"> | <input type="button" onclick="document.location.href='dayz_admin_tool_tents_bliss.php';" value="View Tents"> | <input type="button" onclick="document.location.href='dayz_admin_tool_objects_bliss.php';" value="View Objects"> | Killzone_Kid's Arma II DayZ Admin Tools for Bliss build 4.1
 		<hr /> 
 		&nbsp;&nbsp;<input id="players" type="button" onclick="document.location.href='?opt=0';" value="Players"><input type="button" onclick="document.location.href='?opt=1';" value="Health"><input type="button" onclick="document.location.href='?opt=2';" value="Inventory"><input type="button" onclick="document.location.href='?opt=3';" value="Position"> <input id="refresh" type="text" value="" readonly>
 		<img class="<?php echo $server_map;?>" src=".maps/<?php echo $server_map.'.jpg';?>">

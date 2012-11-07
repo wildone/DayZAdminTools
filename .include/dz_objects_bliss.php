@@ -20,7 +20,7 @@
 	}
 	
 	// if cache is older than set interval
-	if (($now - filemtime($cache_file)) > $update_interval) {	
+	if ($force_update_cache || ($now - filemtime($cache_file)) > $update_interval) {	
 		touch($cache_file);
 		
 		//start db query	

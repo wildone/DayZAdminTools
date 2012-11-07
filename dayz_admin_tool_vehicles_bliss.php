@@ -1,16 +1,16 @@
 <?php
 
-/**************************************************
+	/**************************************************
 
-	Written by Killzone_Kid
-	http://killzonekid.com
+		Written by Killzone_Kid
+		http://killzonekid.com
 	
-	@Modified-By:   Gate
-	@Modified-Date: 2012/10/23
+		@Modified-By:   Gate
+		@Modified-Date: 2012/10/23
 
-**************************************************/
+	**************************************************/
 
-include ".include/dz_config_bliss.php";
+	include ".include/dz_config_bliss.php";
 
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ include ".include/dz_config_bliss.php";
 		<script type="text/javascript" src=".include/functions.js"></script>
 	</head>
 	<body onload="JavaScript:timedRefresh(31000);">
-		| <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_players_bliss.php';" value="View Players"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_vehicles_bliss.php';" value="View Vehicles"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_tents_bliss.php';" value="View Tents"> | <input id="index_players" type="button" onclick="document.location.href='dayz_admin_tool_objects_bliss.php';" value="View Objects"> | Killzone_Kid's Arma II DayZ Admin Tools for Bliss build 4.1
+		| <input type="button" onclick="document.location.href='dayz_admin_tool_players_bliss.php';" value="View Players"> | <input type="button" onclick="document.location.href='dayz_admin_tool_vehicles_bliss.php';" value="View Vehicles"> | <input type="button" onclick="document.location.href='dayz_admin_tool_tents_bliss.php';" value="View Tents"> | <input type="button" onclick="document.location.href='dayz_admin_tool_objects_bliss.php';" value="View Objects"> | Killzone_Kid's Arma II DayZ Admin Tools for Bliss build 4.1
 		<hr /> 
 		&nbsp;&nbsp;<input id="vehicles" type="button" onclick="document.location.href='?';" value="Vehicles"><input type="button" onclick="document.location.href='?opt=1';" value="Damages"><input type="button" onclick="document.location.href='?opt=2';" value="Inventory"><input type="button" onclick="document.location.href='?opt=3';" value="Position"> <input id="refresh" type="text" value="" readonly>
 		<img class="<?php echo $server_map;?>" src="<?php echo '.maps/'.$server_map.'.jpg';?>">

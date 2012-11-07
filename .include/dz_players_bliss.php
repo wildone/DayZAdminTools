@@ -20,7 +20,7 @@
 	}
 	
 	// check to see if cache is out of date
-	if (true || ($now - filemtime($cache_file)) > $update_interval) {	
+	if ($force_update_cache || ($now - filemtime($cache_file)) > $update_interval) {	
 		touch($cache_file);
 		
 		$db_pull_limit = $DB_max_query_players_results;

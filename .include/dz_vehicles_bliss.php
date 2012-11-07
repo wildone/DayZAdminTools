@@ -21,7 +21,7 @@
 	}
 	
 	// if cache is older than set interval
-	if (true || ($now-filemtime($cache_file)) > $update_interval){	
+	if ($force_update_cache || ($now-filemtime($cache_file)) > $update_interval){	
 		touch($cache_file);
 	
 	//start db query
@@ -82,8 +82,6 @@ END;
 					$pos_text = '? x ?';
 					$regexp = '/\[.+,\[(.+),(.+),.+\]\]/U';
 					if (preg_match($regexp, $worldspace, $matches) !== false) {
-					
-						
 						$x = number_format($matches[1] / 100, 2);
 						$y = number_format(153 - ($matches[2] / 100), 2);
 						$pos_text = $x .' x '. $y;
